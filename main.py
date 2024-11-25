@@ -70,13 +70,17 @@ while state != 6:
         try:
             book_list = lib.find_book(key, value)
 
-            print("Подходящие книги: ")
-            for book in book_list:
-                print(book)
+            if book_list is None:
+                print("Книги не найдены. ")
+            else:
+                print("Подходящие книги: ")
+                for book in book_list:
+                    print(book)
+
             state = next_action
 
         except lt.FindKeyError:
-            print("Книга с таким id не найдена, попробуйте ещё")
+            print("Вы ввели неправильную категорию поиска, введите одно из значений author, title или year")
 
     # Вывод всех книг
     if state == 4:
@@ -85,16 +89,22 @@ while state != 6:
 
     # Смена статуса у книги
     if state == 5:
-        id = int(input("Введите id книги у которой хотите поменять статус: "))
         try:
-            print("Введите новый статус (\"в наличии\", \"выдана\"): ")
-            status = input()
-            lib.change_status(id, status)
-            print("Статус книги изменён. \n")
+            id = int(input("Введите id книги у которой хотите поменять статус: "))
+            try:
+                print("Введите новый статус (\"в наличии\", \"выдана\"): ")
+                status = input()
+                lib.change_status(id, status)
+                print("Статус книги изменён. \n")
 
-            state = next_action
+                state = next_action
+            except ValueError:
+                print("Вы ввели неправильный статус, попробуйте ещё")
+            except lt.BookIndexError:
+                print("Вы ввели неправильный индекс, попробуйте ещё")
         except ValueError:
-            print("Вы ввели неправильный статус, попробуйте ещё")
+            print("Индекс это целое число, попробуйте ещё")
+
 
 print("Работа завершена, приходите ещё!")
 
