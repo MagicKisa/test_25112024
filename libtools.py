@@ -29,7 +29,7 @@ class Book:
         self.status = "в наличии"
 
     def __str__(self):
-        attr_list = [f"{key}: {getattr(key)}\n" for key in self.__dict__]
+        attr_list = [f"{key}: {getattr(self, key)}\n" for key in self.__dict__]
         return "".join(attr_list)
 
 
@@ -93,3 +93,5 @@ class Library:
         book_index = self.find_book_index_by_id(id)
         book = self.book_list[book_index]
         book.status = status
+
+
