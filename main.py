@@ -1,7 +1,7 @@
 import libtools as lt
 
 lib = lt.Library()
-
+lib.read_from_file("data.txt")
 state = -2
 
 while state != 6:
@@ -67,7 +67,8 @@ while state != 6:
     if state == 5:
         id = int(input("Введите id книги у которой хотите поменять статус: "))
         try:
-            status = input("Введите новый статус (\"в наличии\", \"выдана\")")
+            print("Введите новый статус (\"в наличии\", \"выдана\"): ")
+            status = input()
             lib.change_status(id, status)
             print("Статус книги изменён. \n")
 
