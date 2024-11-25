@@ -124,6 +124,10 @@ class Library:
                 # сохраняем уникальность id
                 Book._BOOK_ID = id
 
+    def write_to_file(self, filename: str) -> None:
+        """Функция для сохранения сеанса библиотеки в файл"""
+        with open("data.txt", "w") as f:
+            f.write(str(self))
 
 
 
