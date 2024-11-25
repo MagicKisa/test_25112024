@@ -1,9 +1,14 @@
 import libtools as lt
 
 lib = lt.Library()
-lib.read_from_file("data.txt")
 
+# смотрим был ли предыдущий сеанс
+try:
+    lib.read_from_file("data.txt")
+except FileNotFoundError:
+    pass
 
+# названия для некоторых состояний конечного автомата
 next_action = "next_action"
 greetings = "greetings"
 state = greetings
