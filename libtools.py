@@ -32,7 +32,7 @@ class Book:
         self.status = "в наличии"
 
     def __str__(self) -> str:
-        """функция для форматирования вывода объекта книги"""
+        """функция для форматирования вывода данных книги"""
         attr_list = [f"{key}: {getattr(self, key)}\n" for key in self.__dict__]
         return "".join(attr_list)
 
