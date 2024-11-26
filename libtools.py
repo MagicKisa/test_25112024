@@ -126,7 +126,7 @@ class Library:
 
     def write_to_file(self, filename: str) -> None:
         """Функция для сохранения сеанса библиотеки в файл"""
-        with open("data.txt", "w") as f:
+        with open(filename, "w") as f:
             f.write(str(self))
 
 
