@@ -19,13 +19,8 @@ state = greetings
 while state != 7:
     # приветствие и меню
     if state == greetings:
-        print("""Здравствуйте! 
-                                    Чтобы добавить книгу напишите 1,
-                                    Удаление книги - 2, Поиск книги - 3, 
-                                    Отобразить все книги - 4, Изменение статуса - 5,
-                                    Показать меню - 6,
-                                    Сохранить и завершить работу - 7""")
-        state = next_action
+        print("Здравствуйте!")
+        state = 6
 
     # Ввод следующего действия
     if state == next_action:
@@ -83,7 +78,6 @@ while state != 7:
                     print(book)
 
             state = next_action
-
         except lt.FindKeyError:
             print("Вы ввели неправильную категорию поиска, введите одно из значений author, title или year")
 
@@ -113,6 +107,7 @@ while state != 7:
         except ValueError:
             print("Индекс это целое число, попробуйте ещё!")
 
+    # Показать меню
     if state == 6:
         print("""
                                     Чтобы добавить книгу напишите 1,
