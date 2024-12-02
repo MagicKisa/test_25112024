@@ -1,5 +1,6 @@
 import libtools as lt
 
+# инициализация библиотеки
 lib = lt.Library()
 
 # смотрим был ли предыдущий сеанс
@@ -8,16 +9,18 @@ try:
 except FileNotFoundError:
     pass
 
-# названия для некоторых состояний конечного автомата
+# переменные состояний конечного автомата
 next_action = "next_action"
-greetings = "greetings"
 add_book, remove_book, find_book, print_lib, change_status, menu, end = [i for i in range(1, 8)]
+
+# Здороваемся с пользователем и запускаем конечный автомат с вывода меню
+print("Здравствуйте!")
 state = menu
 
 # конечный автомат
 # при неправильном вводе данных пользователю даётся ещё попытка
 # при правильном вводе данных автомат всё выполняет и переводит пользователя к следующему действию
-print("Здравствуйте!")
+
 while state != end:
     # Ввод следующего действия
     if state == next_action:
