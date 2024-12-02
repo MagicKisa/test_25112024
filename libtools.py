@@ -84,7 +84,10 @@ class Library:
         books_info = [f"{str(book)}\n" for book in self.book_list]
         return "".join(books_info)
 
-    def change_status(self, id: int, status: str):
+    def __bool__(self) -> bool:
+        return bool(self.book_list)
+
+    def change_status(self, id: int, status: str) -> None:
         """Позволяет поменять статус книги по её id"""
         if status not in ("в наличии", "выдана"):
             raise ValueError("Неправильное значение статуса")

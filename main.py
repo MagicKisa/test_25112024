@@ -54,14 +54,18 @@ while state != 6:
     # Удаление книги
     if state == 2:
         print("Введите уникальный id книги для удаления: ")
-        id = int(input())
-
         try:
-            lib.remove_book(id)
-            print("Книга удалена, спасибо!\n")
-            state = next_action
-        except lt.FindError:
-            print("Книга с таким id не найдена, попробуйте ещё. ")
+            id = int(input())
+            try:
+                lib.remove_book(id)
+                print("Книга удалена, спасибо!\n")
+                state = next_action
+            except lt.FindError:
+                print("Книга с таким id не найдена, попробуйте ещё. ")
+        except ValueError:
+            print("Индекс это целое число, попробуйте ещё.")
+
+
 
     # Поиск книги
     if state == 3:
@@ -84,7 +88,10 @@ while state != 6:
 
     # Вывод всех книг
     if state == 4:
-        print(lib)
+        if lib:
+            print(lib)
+        else:
+            print("Библиотека пуста.")
         state = next_action
 
     # Смена статуса у книги
