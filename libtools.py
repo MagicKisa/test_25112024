@@ -18,7 +18,7 @@ class Book:
     _BOOK_ID = 0
 
     @classmethod
-    def get_id(cls):
+    def get_id(cls) -> int:
         """Получает уникальный идентификатор книги"""
         cls._BOOK_ID += 1
         return cls._BOOK_ID
@@ -46,6 +46,7 @@ class Library:
         """Функция для добавления книги в библиотеку"""
         new_book = Book(title, author, year)
         self.book_list.append(new_book)
+
 
     def __find_book_index_by_id(self, id: int) -> int:
         """Функция позволяющая найти index книги с данным id в списке self.book_list"""
