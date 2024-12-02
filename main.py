@@ -11,23 +11,20 @@ except FileNotFoundError:
 # названия для некоторых состояний конечного автомата
 next_action = "next_action"
 greetings = "greetings"
-state = greetings
+add_book, remove_book, find_book, print_lib, change_status, menu, end = [i for i in range(1, 8)]
+state = menu
 
 # конечный автомат
 # при неправильном вводе данных пользователю даётся ещё попытка
 # при правильном вводе данных автомат всё выполняет и переводит пользователя к следующему действию
-while state != 7:
-    # приветствие и меню
-    if state == greetings:
-        print("Здравствуйте!")
-        state = 6
-
+print("Здравствуйте!")
+while state != end:
     # Ввод следующего действия
     if state == next_action:
         try:
             print("Введите следующее действие(1-7): ")
             new_state = int(input())
-            if 1 <= new_state <= 7:
+            if add_book <= new_state <= end:
                 state = new_state
             else:
                 print("Чуточку не то! Введите число от 1 до 7")
@@ -35,7 +32,7 @@ while state != 7:
             print("Вы ввели не целое число, но всё в порядке. Введите целое число от 1 до 7")
 
     # Добавление книги
-    if state == 1:
+    if state == add_book:
         print("Введите название книги: ")
         title = input()
         print("Автора книги: ")
@@ -48,7 +45,7 @@ while state != 7:
         state = next_action
 
     # Удаление книги
-    if state == 2:
+    if state == remove_book:
         print("Введите уникальный id книги для удаления: ")
         try:
             id = int(input())
@@ -64,7 +61,7 @@ while state != 7:
 
 
     # Поиск книги
-    if state == 3:
+    if state == find_book:
         key = input("Введите категорию поиска(author, title, year): ")
         value = input("Введите автора, название или год(в зависимости от категории поиска): ")
         try:
@@ -82,7 +79,7 @@ while state != 7:
             print("Вы ввели неправильную категорию поиска, введите одно из значений author, title или year")
 
     # Вывод всех книг
-    if state == 4:
+    if state == print_lib:
         if lib:
             print(lib)
         else:
@@ -90,7 +87,7 @@ while state != 7:
         state = next_action
 
     # Смена статуса у книги
-    if state == 5:
+    if state == change_status:
         try:
             id = int(input("Введите id книги у которой хотите поменять статус: "))
             try:
@@ -108,7 +105,7 @@ while state != 7:
             print("Индекс это целое число, попробуйте ещё!")
 
     # Показать меню
-    if state == 6:
+    if state == menu:
         print("""
                                     Чтобы добавить книгу напишите 1,
                                     Удаление книги - 2, Поиск книги - 3, 
