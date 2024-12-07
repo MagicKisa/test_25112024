@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 import libtools as lt
 
-
+class Context:
+    pass
 class State(ABC):
     """
         Базовый класс Состояния объявляет методы, которые должны реализовать все
@@ -48,7 +49,7 @@ class Context:
         Контекст позволяет изменять объект Состояния во время выполнения.
         """
 
-        print(f"Context: Transition to {type(state).__name__}")
+        # print(f"Context: Transition to {type(state).__name__}")
         self._state = state
         self._state.context = self
 
@@ -56,11 +57,11 @@ class Context:
     Контекст делегирует часть своего поведения текущему объекту Состояния.
     """
 
-    def request1(self):
+    def polling(self):
         self._state.proccess()
 
     def __bool__(self):
-        if self._state == EndState:
+        if isinstance(self._state, EndState):
             return False
         return True
 
@@ -71,7 +72,7 @@ class InputState(State):
             print("Введите следующее действие(1-7): ")
             new_state = int(input())
             if 1 <= new_state <= 7:
-                self.context.transition_to(states[new_state - 1])
+                self.context.transition_to(states[new_state - 1]())
             else:
                 print("Чуточку не то! Введите число от 1 до 7")
         except ValueError:
@@ -88,7 +89,7 @@ class AddBookState(State):
 
         self.context.lib.add_book(title, author, year)
         print("Книга добавлена! Спасибо \n")
-        self.context.transition_to(InputState)
+        self.context.transition_to(InputState())
 
 class RemoveBookState(State):
     def proccess(self) -> None:
@@ -98,7 +99,7 @@ class RemoveBookState(State):
             try:
                 self.context.lib.remove_book(id)
                 print("Книга удалена, спасибо!\n")
-                self.context.transition_to(InputState)
+                self.context.transition_to(InputState())
             except lt.FindError:
                 print("Книга с таким id не найдена, попробуйте ещё. ")
         except ValueError:
@@ -118,7 +119,7 @@ class FindBookState(State):
                 for book in book_list:
                     print(book)
 
-            self.context.transition_to(InputState)
+            self.context.transition_to(InputState())
         except lt.FindKeyError:
             print("Вы ввели неправильную категорию поиска, введите одно из значений author, title или year")
 
@@ -128,7 +129,7 @@ class PrintLibState(State):
             print(self.context.lib)
         else:
             print("Библиотека пуста.")
-        self.context.transition_to(InputState)
+        self.context.transition_to(InputState())
 
 class ChangeStatusState(State):
     def proccess(self) -> None:
@@ -140,7 +141,7 @@ class ChangeStatusState(State):
                 self.context.lib.change_status(id, status)
                 print("Статус книги изменён. \n")
 
-                self.context.transition_to(InputState)
+                self.context.transition_to(InputState())
             except ValueError:
                 print("Вы ввели неправильный статус, попробуйте ещё!")
             except lt.BookIndexError:
@@ -156,7 +157,7 @@ class MenuState(State):
                                             Отобразить все книги - 4, Изменение статуса - 5,
                                             Показать меню - 6,
                                             Сохранить и завершить работу - 7""")
-        self.context.transition_to(InputState)
+        self.context.transition_to(InputState())
 
 class EndState(State):
     def proccess(self) -> None:
