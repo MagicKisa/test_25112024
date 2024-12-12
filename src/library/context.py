@@ -67,6 +67,7 @@ class Context:
 
 
 class InputState(State):
+    """Отвечает за выбор следующего состояния пользователем"""
     def proccess(self) -> None:
         try:
             print("Введите следующее действие(1-7): ")
@@ -79,6 +80,7 @@ class InputState(State):
             print("Вы ввели не целое число, но всё в порядке. Введите целое число от 1 до 7")
 
 class AddBookState(State):
+    """Отвечает за добавление книги"""
     def proccess(self) -> None:
         print("Введите название книги: ")
         title = input()
